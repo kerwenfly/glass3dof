@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 无障碍服务在系统设置里的说明（列表里显示 app 名，这里是描述） -->
+    <string name="accessibility_desc">投屏自动化辅助：自动确认录屏/USB 授权弹窗、恢复眼镜屏输入焦点，并把触控板操作注入到眼镜画面（无需 Shizuku）。</string>
+</resources>

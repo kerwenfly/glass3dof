@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  无障碍辅助服务配置（对齐 base.apk 实测值，免 Shizuku 全链路）。
+
+  要点：
+  - canRetrieveWindowContent：读取授权弹窗节点树，必须
+  - canPerformGestures：dispatchGesture 触摸注入（免 Shizuku 触控板），必须
+  - flagRetrieveInteractiveWindows：getWindowsOnAllDisplays() 跨屏焦点恢复的前提
+  - flagReportViewIds：viewId 匹配（android:id/button1）的前提，base.apk 也开了
+  - 不申请 flagRequestFilterKeyEvents：HOME 键拦截功能已移除，不需要按键过滤
+  - accessibilityEventTypes 只订阅窗口结构相关事件（不再用 typeAllMask）：
+    弹窗出现必然伴随 typeWindowStateChanged / typeWindowsChanged，够用；
+    本应用的 GL 渲染与捕获挂在同一进程的主线程上，全系统事件洪水会抢主线程 → 灰屏
+  - 不声明 canTakeScreenshot：该属性 compileSdk 36 才有，本工程 34 用不到截屏
+-->
+<accessibility-service xmlns:android="http://schemas.android.com/apk/res/android"
+    android:description="@string/accessibility_desc"
+    android:accessibilityEventTypes="typeWindowStateChanged|typeWindowContentChanged|typeWindowsChanged"
+    android:accessibilityFeedbackType="feedbackGeneric"
+    android:notificationTimeout="150"
+    android:accessibilityFlags="flagIncludeNotImportantViews|flagReportViewIds|flagRetrieveInteractiveWindows"
+    android:canRetrieveWindowContent="true"
+    android:canPerformGestures="true" />
